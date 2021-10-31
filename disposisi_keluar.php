@@ -443,7 +443,7 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <form id="add" action="tambah_surat.php" method="post" enctype="multipart/form-data">
+                <form id="add" action="tambah_disposisi.php" method="post" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Nomor Surat:</label>
@@ -456,7 +456,7 @@
                                     if ($resultsurat->num_rows > 0) {
                                         while($row = $resultsurat->fetch_assoc()) { ?>
 
-                                            <option value="<?php echo $row['no_surat'];?>"><?php echo $row['no_surat'];?></option>
+                                            <option value="<?php echo $row['id_surat'];?>"><?php echo $row['no_surat'];?></option>
                                         <?php };};?>
                             </select>
 
@@ -469,7 +469,7 @@
                                     if ($resultsurat->num_rows > 0) {
                                         while($row = $resultsurat->fetch_assoc()) { ?>
 
-                                            <option value="<?php echo $row['nama'];?>"><?php echo $row['nama'];?></option>
+                                            <option value="<?php echo $row['username'];?>"><?php echo $row['nama'];?></option>
                                         <?php };};?>
                             </select>
                             <label for="recipient-name" class="col-form-label">Pesan:</label>
