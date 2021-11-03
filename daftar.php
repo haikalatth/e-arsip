@@ -11,9 +11,12 @@
 </head>
 <body>
 <div class="registration-form">
-    <form action="cek_login.php" method="post">
+    <form action="daftar_akun.php" method="post">
         <div class="form-icon">
             <span><i class="icon icon-user"></i></span>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control item" name="nama" placeholder="Nama Lengkap" required>
         </div>
         <div class="form-group">
             <input type="text" class="form-control item" name="username" placeholder="Username" required>
@@ -22,23 +25,17 @@
             <input type="password" class="form-control item" name="password" placeholder="Password" required>
         </div>
         <div class="form-group">
-            <button type="submit" name="submit" class="btn btn-block create-account">Login</button>
+            <input type="password" class="form-control item" name="password2" placeholder="Ulangi Password" required>
         </div>
-        <div>
-            <p style="text-align: center">Belum punya akun? <a href="daftar.php">DAFTAR</a> disini!</p>
+        <div class="form-group">
+            <button type="submit" name="submit" class="btn btn-block create-account">Daftar</button>
         </div>
     </form>
     <div class="social-media" style="color: red">
         <?php
             if(isset($_GET['pesan'])){
-                if($_GET['pesan'] == "gagal"){
-                    echo "Login gagal! username atau password salah!";
-                }else if($_GET['pesan'] == "logout"){
-                    echo "Anda telah berhasil logout";
-                }else if($_GET['pesan'] == "belum_login"){
-                    echo "Anda harus login untuk mengakses halaman admin";
-                }else if($_GET['pesan'] == "berhasil"){
-                    echo "Pendaftaran Berhasil, Silakan Login!";
+                if($_GET['daftar'] == "gagal"){
+                    echo "Pendaftaran Gagal, Silakan Mengulangi Pendaftaran!";
                 }
             }
         ?>
