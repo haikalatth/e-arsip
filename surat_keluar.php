@@ -14,8 +14,8 @@
     <!-- Custom fonts for this template-->
     <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="assets/css/sb-admin-2.min.css" rel="stylesheet">
@@ -202,7 +202,7 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800">Data Surat Masuk</h1>
+                <h1 class="h3 mb-2 text-gray-800">Data Surat Keluar</h1>
 
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
@@ -210,7 +210,7 @@
                         <a href="#" data-toggle="modal" data-target="#tambahModal">
                             <h6 class="m-0 font-weight-bold text-primary" style="float: right">
                                 <i class="fa fa-plus-square" aria-hidden="true"></i>
-                                Tambah Surat Masuk
+                                Tambah Surat Keluar
                             </h6>
                         </a>
                     </div>
@@ -219,33 +219,190 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Office</th>
-                                    <th>Age</th>
-                                    <th>Start date</th>
-                                    <th>Salary</th>
+                                    <th>No</th>
+                                    <th>No Surat</th>
+                                    <th>Perihal</th>
+                                    <th>Tanggal Surat</th>
+                                    <th>Penerima Surat</th>
+                                    <th>Aksi</th>
                                 </tr>
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Office</th>
-                                    <th>Age</th>
-                                    <th>Start date</th>
-                                    <th>Salary</th>
+                                    <th>No</th>
+                                    <th>No Surat</th>
+                                    <th>Perihal</th>
+                                    <th>Tanggal Surat</th>
+                                    <th>Penerima Surat</th>
+                                    <th>Aksi</th>
                                 </tr>
                                 </tfoot>
                                 <tbody>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                    <td>61</td>
-                                    <td>2011/04/25</td>
-                                    <td>$320,800</td>
-                                </tr>
+                                <?php
+                                    include 'koneksi.php';
+                                    $sql = "SELECT * FROM tb_surat WHERE ket='2'";
+                                    $result = $conn->query($sql);
+                                    $i = 1;
+                                    if ($result->num_rows > 0) {
+                                        while($row = $result->fetch_assoc()) {
+
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $i++?></td>
+                                                <td><?php echo $row['no_surat']?></td>
+                                                <td><?php echo $row['perihal']?></td>
+                                                <td><?php echo $row['tanggal']?></td>
+                                                <td><?php echo $row['asal']?></td>
+                                                <td>
+                                                    <!--
+                                                    <a href="#" data-toggle="modal" data-target="#disposisiModal" class="btn btn-success btn-circle btn-sm">
+                                                        <i class="fas fa-share"></i>
+                                                    </a>
+                                                    -->
+                                                    <a href="#" data-toggle="modal" data-target="#infoModal" class="btn btn-info btn-circle btn-sm">
+                                                        <i class="fas fa-info-circle"></i>
+                                                    </a>
+                                                    <a href="#" data-toggle="modal" data-target="#hapusModal" class="btn btn-danger btn-circle btn-sm">
+                                                        <i class="fas fa-trash"></i>
+                                                    </a>
+                                                </td>
+
+
+                                                <!-- SEMUA MODAL DISINI-->
+
+                                                <!-- MODAL DISPOSISI-->
+                                                <div class="modal fade" id="disposisiModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                     aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Disposisi Surat </h5>
+                                                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">×</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form>
+                                                                    <div class="form-group">
+                                                                        <label for="recipient-name" class="col-form-label">Penerima Disposisi:</label>
+                                                                        <select class="form-control">
+                                                                            <option value="idne">PENERIMA 1</option>
+                                                                            <option>PENERIMA 2</option>
+                                                                        </select>
+                                                                        <label for="recipient-name" class="col-form-label">Pesan:</label>
+                                                                        <input class="form-control" type="text" name="pesan">
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <a href="#" class="btn btn-success btn-icon-split">
+                                                            <span class="icon text-white-50">
+                                                                <i class="fas fa-paper-plane"></i>
+                                                            </span>
+                                                                    <span class="text">Teruskan Surat</span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- END MODAL DISPOSISI-->
+
+                                                <!-- MODAL INFO-->
+                                                <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                     aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Surat Dari <?php echo $row['asal']?></h5>
+                                                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">×</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="container-fluid">
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <label>Nomor Surat  </label>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            : <?php echo $row['no_surat']?>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <label>Perihal </label>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            : <?php echo $row['perihal']?>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <label>Tanggal </label>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            : <?php echo $row['tanggal']?>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <label>Penerima</label>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            : <?php echo $row['asal']?>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <a href="download.php?surat=<?php echo $row['file']; ?>" target="_blank" class="btn btn-info btn-icon-split">
+                                                            <span class="icon text-white-50">
+                                                                <i class="fas fa-download"></i>
+                                                            </span>
+                                                                    <span class="text">Lihat Surat</span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- END MODAL INFO-->
+
+                                                <!-- HAPUS Modal-->
+                                                <div class="modal fade" id="hapusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                     aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Hapus Surat Masuk?</h5>
+                                                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">×</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">Pilih "Hapus" jika ingin menghapus surat.</div>
+                                                            <div class="modal-footer">
+                                                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                                                                <a class="btn btn-primary" href="#" onclick="hapusFunc()">Hapus</a>
+                                                                <form id="hapus" action="hapus_surat.php" method="post">
+                                                                    <input type="hidden" name="id_surat" value="<?php echo $row['id_surat']?>">
+                                                                    <input type="hidden" name="file" value="<?php echo $row['file']?>">
+                                                                </form>
+                                                                <script>
+                                                                    function hapusFunc() {
+                                                                        document.getElementById("hapus").submit();
+                                                                    }
+                                                                </script>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- END HAPUS MODAL-->
+                                            </tr>
+                                            <?php
+                                        }
+                                    } else {
+                                        printf('No record found.<br />');
+                                    }
+                                ?>
                                 </tbody>
                             </table>
                         </div>
@@ -278,6 +435,59 @@
 <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
 </a>
+
+<!-- MODAL DILUAR TABEL -->
+
+<!-- MODAL DISPOSISI-->
+<div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Tambah Surat Keluar</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <form id="add" action="tambah_surat.php" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Nomor Surat:</label>
+                        <input class="form-control" type="text" name="no_surat">
+
+                        <label for="recipient-name" class="col-form-label">Perihal:</label>
+                        <input class="form-control" type="text" name="perihal">
+
+                        <label for="recipient-name" class="col-form-label">Tanggal Surat:</label>
+                        <input class="form-control" type="date" name="tanggal">
+
+                        <label for="recipient-name" class="col-form-label">Penerima Surat:</label>
+                        <input class="form-control" type="text" name="asal">
+
+                        <label for="recipient-name" class="col-form-label">File Dokumen:</label>
+                        <input class="form-control-file" type="file" name="file">
+                        <p style="color: red">Ekstensi yang diperbolehkan .pdf</p>
+                        <input type="hidden" name="ket" value="2">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" onclick="myFunction()" class="btn btn-success btn-icon-split">
+                            <span class="icon text-white-50">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </span>
+                        <span class="text">Simpan</span>
+                    </a>
+                    <script>
+                        function myFunction() {
+                            document.getElementById("add").submit();
+                        }
+                    </script>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- END MODAL DISPOSISI-->
 
 <!-- Logout Modal-->
 <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -326,3 +536,31 @@
 </body>
 
 </html>
+
+<?php
+
+    if(isset($_GET['hapus'])){
+        if($_GET['hapus'] == "berhasil"){
+            echo '<script type ="text/JavaScript">';
+            echo 'alert("Berhasil Menghapus Surat Keluar")';
+            echo '</script>';
+        }else if($_GET['hapus'] == "gagal"){
+            echo '<script type ="text/JavaScript">';
+            echo 'alert("Gagal Menghapus Surat Keluar")';
+            echo '</script>';
+        }
+    }
+
+    if(isset($_GET['tambah'])){
+        if($_GET['tambah'] == "berhasil"){
+            echo '<script type ="text/JavaScript">';
+            echo 'alert("Berhasil Menambahkan Surat Keluar")';
+            echo '</script>';
+        }else if($_GET['tambah'] == "gagal"){
+            echo '<script type ="text/JavaScript">';
+            echo 'alert("Gagal Menambahkan Surat Keluar")';
+            echo '</script>';
+        }
+    }
+
+?>

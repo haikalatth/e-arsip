@@ -6,6 +6,7 @@
         $perihal = $_POST['perihal'];
         $tgl = $_POST['tanggal'];
         $asal = $_POST['asal'];
+        $ket = $_POST['ket'];
 
         $rand = rand();
         $ekstensi =  array('pdf');
@@ -16,7 +17,7 @@
             header("location: surat_masuk.php?alert=gagal");
         }else{
             $xx = $rand.'_'.$filename;
-            $sql = "INSERT INTO tb_surat VALUES('',1,'$no_surat','$perihal','$tgl','$asal','$xx')";
+            $sql = "INSERT INTO tb_surat VALUES('','$ket','$no_surat','$perihal','$tgl','$asal','$xx')";
             if ($conn->query($sql) === TRUE) {
                 move_uploaded_file($_FILES['file']['tmp_name'], 'fileupload/'.$xx);
                 header("location: surat_masuk.php?tambah=berhasil");

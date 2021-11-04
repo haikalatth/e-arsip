@@ -467,6 +467,7 @@
                             <label for="recipient-name" class="col-form-label">File Dokumen:</label>
                             <input class="form-control-file" type="file" name="file">
                             <p style="color: red">Ekstensi yang diperbolehkan .pdf</p>
+                            <input type="hidden" name="ket" value="1">
                         </div>
                     </div>
                     <div class="modal-footer">

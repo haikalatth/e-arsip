@@ -19,6 +19,7 @@
         if ($result->num_rows > 0) {
             $row = mysqli_fetch_assoc($result);
             $_SESSION['username'] = $row['username'];
+            $_SESSION['jabatan'] = $row['jabatan'];
             header("Location: index.php");
         } else {
             //echo "<script>alert('Username atau password Anda salah. Silahkan coba lagi!')</script>";
