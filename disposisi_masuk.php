@@ -406,13 +406,10 @@
                                                                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
                                                                 <a class="btn btn-primary" href="#" onclick="hapusFunc()">Hapus</a>
                                                                 <form id="hapus" action="hapus_disposisi.php" method="post">
-                                                                    <input type="hidden" name="id_disposisi" value="<?php echo $iddisposisi?>">
+                                                                    <input type="hidden" name="id_disposisi" value="<?php echo $row['id_disposisi']?>">
+                                                                    <input type="hidden" name="ket" value="masuk">
+                                                                    <input class="btn btn-danger" type="submit" value="HAPUS">
                                                                 </form>
-                                                                <script>
-                                                                    function hapusFunc() {
-                                                                        document.getElementById("hapus").submit();
-                                                                    }
-                                                                </script>
                                                             </div>
                                                         </div>
                                                     </div>

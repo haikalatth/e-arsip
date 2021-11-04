@@ -6,7 +6,7 @@
 
         $sql = "UPDATE user SET jabatan='1' WHERE  username='$username'";
         if ($conn->query($sql) === TRUE) {
-            header("location: admin_userdata.php?adnin=berhasil");
+            header("location: admin_userdata.php?admin=berhasil");
         } else {
             echo $username;
         }

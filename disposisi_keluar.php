@@ -279,10 +279,10 @@
                                                             <i class="fas fa-share"></i>
                                                         </a>
                                                         -->
-                                                        <a href="#" data-toggle="modal" data-target="#infoModal" class="btn btn-info btn-circle btn-sm">
+                                                        <a href="#" data-toggle="modal" data-target="#infoModal<?php echo $row['id_disposisi'] ?>" class="btn btn-info btn-circle btn-sm">
                                                             <i class="fas fa-info-circle"></i>
                                                         </a>
-                                                        <a href="#" data-toggle="modal" data-target="#hapusModal" class="btn btn-danger btn-circle btn-sm">
+                                                        <a href="#" data-toggle="modal" data-target="#hapusModal<?php echo $row['id_disposisi'] ?>" class="btn btn-danger btn-circle btn-sm">
                                                             <i class="fas fa-trash"></i>
                                                         </a>
                                                     </td>
@@ -296,9 +296,9 @@
                                                         $sqlsurat = "Select * FROM tb_surat WHERE id_surat='$idsurat'";
                                                         $resultsurat = $conn -> query($sqlsurat);
                                                         if ($resultsurat->num_rows > 0) {
-                                                            while($row = $resultsurat->fetch_assoc()) {
+                                                            while($rows = $resultsurat->fetch_assoc()) {
                                                                 ?>
-                                                                <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                                <div class="modal fade" id="infoModal<?php echo $row['id_disposisi'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                                                                      aria-hidden="true">
                                                                     <div class="modal-dialog" role="document">
                                                                         <div class="modal-content">
@@ -315,7 +315,7 @@
                                                                                             <label>Nomor Surat  </label>
                                                                                         </div>
                                                                                         <div class="col-md-4">
-                                                                                            : <?php echo $row['no_surat']?>
+                                                                                            : <?php echo $rows['no_surat']?>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="row">
@@ -323,7 +323,7 @@
                                                                                             <label>Perihal </label>
                                                                                         </div>
                                                                                         <div class="col-md-4">
-                                                                                            : <?php echo $row['perihal']?>
+                                                                                            : <?php echo $rows['perihal']?>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="row">
@@ -331,7 +331,7 @@
                                                                                             <label>Tanggal </label>
                                                                                         </div>
                                                                                         <div class="col-md-4">
-                                                                                            : <?php echo $row['tanggal']?>
+                                                                                            : <?php echo $rows['tanggal']?>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="row">
@@ -339,16 +339,16 @@
                                                                                             <label>Asal Surat</label>
                                                                                         </div>
                                                                                         <div class="col-md-4">
-                                                                                            : <?php echo $row['asal']?>
+                                                                                            : <?php echo $rows['asal']?>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="modal-footer">
-                                                                                <a href="download.php?surat=<?php echo $row['file']; ?>" target="_blank" class="btn btn-info btn-icon-split">
-                                                            <span class="icon text-white-50">
-                                                                <i class="fas fa-download"></i>
-                                                            </span>
+                                                                                <a href="download.php?surat=<?php echo $rows['file']; ?>" target="_blank" class="btn btn-info btn-icon-split">
+                                                                                    <span class="icon text-white-50">
+                                                                                        <i class="fas fa-download"></i>
+                                                                                    </span>
                                                                                     <span class="text">Lihat Surat</span>
                                                                                 </a>
                                                                             </div>
@@ -362,7 +362,7 @@
                                                     <!-- END MODAL INFO-->
 
                                                     <!-- HAPUS Modal-->
-                                                    <div class="modal fade" id="hapusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                    <div class="modal fade" id="hapusModal<?php echo $row['id_disposisi'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                                                          aria-hidden="true">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
@@ -375,15 +375,11 @@
                                                                 <div class="modal-body">Pilih "Hapus" jika ingin menghapus disposisi.</div>
                                                                 <div class="modal-footer">
                                                                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                                                                    <a class="btn btn-primary" href="#" onclick="hapusFunc()">Hapus</a>
                                                                     <form id="hapus" action="hapus_disposisi.php" method="post">
-                                                                        <input type="hidden" name="id_disposisi" value="<?php echo $iddisposisi?>">
+                                                                        <input type="hidden" name="id_disposisi" value="<?php echo $row['id_disposisi']?>">
+                                                                        <input type="hidden" name="ket" value="keluar">
+                                                                        <input class="btn btn-danger" type="submit" value="HAPUS">
                                                                     </form>
-                                                                    <script>
-                                                                        function hapusFunc() {
-                                                                            document.getElementById("hapus").submit();
-                                                                        }
-                                                                    </script>
                                                                 </div>
                                                             </div>
                                                         </div>
