@@ -416,12 +416,12 @@
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">Hapus Surat Masuk?</h5>
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Hapus Peminjaman?</h5>
                                                                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">×</span>
                                                                     </button>
                                                                 </div>
-                                                                <div class="modal-body">Pilih "Hapus" jika ingin menghapus surat.</div>
+                                                                <div class="modal-body">Pilih "Hapus" jika ingin menghapus Peminjaman.</div>
                                                                 <div class="modal-footer">
                                                                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
                                                                     <form id="hapus" action="hapus_peminjaman.php" method="post">
