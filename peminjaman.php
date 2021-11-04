@@ -18,7 +18,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>E-ARSIP - Disposisi</title>
+        <title>E-ARSIP - Peminjaman</title>
 
         <!-- Custom fonts for this template-->
         <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -61,40 +61,41 @@
             </li>
 
             <!-- SURAT -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSurat"
                    aria-expanded="true" aria-controls="collapseSurat">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Dokumen</span>
                 </a>
-                <div id="collapseSurat" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div id="collapseSurat" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Surat:</h6>
                         <a class="collapse-item" href="surat_masuk.php">Surat Masuk</a>
                         <div class="collapse-divider"></div>
                         <a class="collapse-item" href="surat_keluar.php">Surat Keluar</a>
                         <h6 class="collapse-header">Transaksi:</h6>
-                        <a class="collapse-item" href="peminjaman.php">Peminjaman</a>
+                        <a class="collapse-item active" href="peminjaman.php">Peminjaman</a>
                     </div>
                 </div>
             </li>
 
             <!-- TRANSAKSI -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDisposisi"
                    aria-expanded="true" aria-controls="collapseDisposisi">
                     <i class="fas fa-fw fa-paper-plane"></i>
                     <span>Disposisi</span>
                 </a>
-                <div id="collapseDisposisi" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div id="collapseDisposisi" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Disposisi:</h6>
                         <a class="collapse-item" href="disposisi_masuk.php">Masuk</a>
                         <div class="collapse-divider"></div>
-                        <a class="collapse-item active" href="disposisi_keluar.php">Keluar</a>
+                        <a class="collapse-item" href="disposisi_keluar.php">Keluar</a>
                     </div>
                 </div>
             </li>
+
 
             <!-- TRANSAKSI -->
             <li class="nav-item">
@@ -250,18 +251,18 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Data Disposisi Keluar</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Data Peminjaman Surat</h1>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3">
+                        <!--<div class="card-header py-3">
                             <a href="#" data-toggle="modal" data-target="#tambahModal">
                                 <h6 class="m-0 font-weight-bold text-primary" style="float: right">
                                     <i class="fa fa-plus-square" aria-hidden="true"></i>
-                                    Tambah Disposisi
+                                    Tambah Surat Masuk
                                 </h6>
                             </a>
-                        </div>
+                        </div>-->
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -269,8 +270,10 @@
                                     <tr>
                                         <th>No</th>
                                         <th>No Surat</th>
-                                        <th>Disposisi Ke</th>
-                                        <th>Pesan</th>
+                                        <th>Tanggal Peminjaman</th>
+                                        <th>Jadwal Kembali</th>
+                                        <th>Status</th>
+                                        <th>Peminjam</th>
                                         <th>Aksi</th>
                                     </tr>
                                     </thead>
@@ -278,145 +281,151 @@
                                     <tr>
                                         <th>No</th>
                                         <th>No Surat</th>
-                                        <th>Disposisi Ke</th>
-                                        <th>Pesan</th>
+                                        <th>Tanggal Peminjaman</th>
+                                        <th>Jadwal Kembali</th>
+                                        <th>Status</th>
+                                        <th>Peminjam</th>
                                         <th>Aksi</th>
                                     </tr>
                                     </tfoot>
                                     <tbody>
                                     <?php
                                         include 'koneksi.php';
-                                        $user = $_SESSION['username'];
-                                        $sql = "SELECT * FROM tb_disposisi WHERE id_pengirim='$user'";
+                                        $sql = "SELECT * FROM tb_peminjaman";
                                         $result = $conn->query($sql);
                                         $i = 1;
                                         if ($result->num_rows > 0) {
                                             while($row = $result->fetch_assoc()) {
-                                                $iddisposisi = $row['id_disposisi'];
-
+                                                $peminjam = $row['username'];
+                                                $idsurat = $row['id_surat'];
+                                                $tglpinjam = $row['tgl_pinjam'];
+                                                $tglkembali = $row['tgl_kembali'];
+                                                $status = $row['status'];
                                                 ?>
                                                 <tr>
                                                     <td><?php echo $i++?></td>
                                                     <td><?php
-                                                            $idsurat = $row['id_surat'];
-                                                            $sqlsurat = "Select no_surat FROM tb_surat WHERE id_surat='$idsurat'";
-                                                            $resultsurat = $conn -> query($sqlsurat);
-                                                            echo $resultsurat->fetch_assoc()['no_surat'];
-                                                        ?>
-                                                    </td>
+                                                            $sqla = "SELECT * FROM tb_surat WHERE id_surat = '$idsurat'";
+                                                            $resulta = $conn->query($sqla);
+                                                            if($resulta->num_rows > 0){
+                                                                while($rowa = $resulta->fetch_assoc()) {
+                                                                    echo $rowa['no_surat'];
+                                                                }
+                                                            }?></td>
+                                                    <td><?php echo $tglpinjam?></td>
+                                                    <td><?php echo $tglkembali?></td>
+                                                    <td><?php echo $status ?></td>
                                                     <td><?php
-                                                            $uname = $row['id_penerima'];
-                                                            $sqlpengirim = "Select nama FROM user WHERE username='$uname'";
-                                                            $resultpengirim = $conn -> query($sqlpengirim);
-                                                            $pengirimdisposisi = $resultpengirim->fetch_assoc()['nama'];
-                                                            echo $pengirimdisposisi;
-                                                        ?></td>
-                                                    <td><?php echo $row['pesan']?></td>
+                                                            $sqlb = "SELECT * FROM user WHERE username = '$peminjam'";
+                                                            $resultb = $conn->query($sqlb);
+                                                            if($resultb->num_rows > 0){
+                                                                while($rowb = $resultb->fetch_assoc()) {
+                                                                    echo $rowb['nama'];
+                                                                }
+                                                            }?></td>
                                                     <td>
+
                                                         <!--
                                                         <a href="#" data-toggle="modal" data-target="#disposisiModal" class="btn btn-success btn-circle btn-sm">
                                                             <i class="fas fa-share"></i>
                                                         </a>
                                                         -->
-                                                        <a href="#" data-toggle="modal" data-target="#infoModal<?php echo $row['id_disposisi'] ?>" class="btn btn-info btn-circle btn-sm">
+                                                        <?php
+                                                            if($_SESSION['username'] == $row['username'] && $row['status'] == 'dipinjam'){
+                                                                echo '<a href="#" data-toggle="modal" data-target="#kembaliModal'.$row['id_peminjaman'].'" class="btn btn-success btn-circle btn-sm">
+                                                                        <i class="fas fa-retweet"></i>
+                                                                        </a>';
+                                                            }
+                                                        ?>
+                                                        <a href="#" data-toggle="modal" data-target="#infoModal<?php echo $row['id_peminjaman']?>" class="btn btn-info btn-circle btn-sm">
                                                             <i class="fas fa-info-circle"></i>
                                                         </a>
-                                                        <a href="#" data-toggle="modal" data-target="#hapusModal<?php echo $row['id_disposisi'] ?>" class="btn btn-danger btn-circle btn-sm">
+                                                        <a href="#" data-toggle="modal" data-target="#hapusModal<?php echo $row['id_peminjaman']?>" class="btn btn-danger btn-circle btn-sm">
                                                             <i class="fas fa-trash"></i>
                                                         </a>
+
                                                     </td>
 
 
                                                     <!-- SEMUA MODAL DISINI-->
 
                                                     <!-- MODAL INFO-->
-                                                    <?php
-                                                        $idsurat = $row['id_surat'];
-                                                        $sqlsurat = "Select * FROM tb_surat WHERE id_surat='$idsurat'";
-                                                        $resultsurat = $conn -> query($sqlsurat);
-                                                        if ($resultsurat->num_rows > 0) {
-                                                            while($rows = $resultsurat->fetch_assoc()) {
-                                                                ?>
-                                                                <div class="modal fade" id="infoModal<?php echo $row['id_disposisi'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                                                                     aria-hidden="true">
-                                                                    <div class="modal-dialog" role="document">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h5 class="modal-title" id="exampleModalLabel">Disposisi Dari <?php echo $pengirimdisposisi?></h5>
-                                                                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                                                                    <span aria-hidden="true">×</span>
-                                                                                </button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                <div class="container-fluid">
-                                                                                    <div class="row">
-                                                                                        <div class="col-md-4">
-                                                                                            <label>Nomor Surat  </label>
-                                                                                        </div>
-                                                                                        <div class="col-md-4">
-                                                                                            : <?php echo $rows['no_surat']?>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="row">
-                                                                                        <div class="col-md-4">
-                                                                                            <label>Perihal </label>
-                                                                                        </div>
-                                                                                        <div class="col-md-4">
-                                                                                            : <?php echo $rows['perihal']?>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="row">
-                                                                                        <div class="col-md-4">
-                                                                                            <label>Tanggal </label>
-                                                                                        </div>
-                                                                                        <div class="col-md-4">
-                                                                                            : <?php echo $rows['tanggal']?>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="row">
-                                                                                        <div class="col-md-4">
-                                                                                            <label>Asal Surat</label>
-                                                                                        </div>
-                                                                                        <div class="col-md-4">
-                                                                                            : <?php echo $rows['asal']?>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <a href="download.php?surat=<?php echo $rows['file']; ?>" target="_blank" class="btn btn-info btn-icon-split">
-                                                                                    <span class="icon text-white-50">
-                                                                                        <i class="fas fa-download"></i>
-                                                                                    </span>
-                                                                                    <span class="text">Lihat Surat</span>
-                                                                                </a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <?php
-                                                            };};
-                                                    ?>
-                                                    <!-- END MODAL INFO-->
-
-                                                    <!-- HAPUS Modal-->
-                                                    <div class="modal fade" id="hapusModal<?php echo $row['id_disposisi'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                    <div class="modal fade" id="infoModal<?php echo $row['id_peminjaman']?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                                                          aria-hidden="true">
+                                                        <?php $sqla = "SELECT * FROM tb_surat WHERE id_surat = '$idsurat'";
+                                                            $resulta = $conn->query($sqla);
+                                                            if($resulta->num_rows > 0){
+                                                                while($rowa = $resulta->fetch_assoc()) {
+
+                                                                    ?>
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">Hapus Disposisi Masuk?</h5>
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Surat Nomor <?php echo $rowa['no_surat']; ?></h5>
                                                                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">×</span>
                                                                     </button>
                                                                 </div>
-                                                                <div class="modal-body">Pilih "Hapus" jika ingin menghapus disposisi.</div>
+                                                                <div class="modal-body">
+                                                                    <div class="container-fluid">
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label>Nomor Surat  </label>
+                                                                            </div>
+                                                                            <div class="col-md-5">
+                                                                                : <?php echo $rowa['no_surat']?>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label>Perihal </label>
+                                                                            </div>
+                                                                            <div class="col-md-5">
+                                                                                : <?php echo $rowa['perihal']?>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label>Tanggal </label>
+                                                                            </div>
+                                                                            <div class="col-md-5">
+                                                                                : <?php echo $rowa['tanggal']?>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <label>Pengirim</label>
+                                                                            </div>
+                                                                            <div class="col-md-5">
+                                                                                : <?php echo $rowa['asal']?>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <?php
+                                                                }
+                                                        }?>
+                                                    </div>
+                                                    <!-- END MODAL INFO-->
+
+                                                    <!-- HAPUS Modal-->
+                                                    <div class="modal fade" id="hapusModal<?php echo $row['id_peminjaman']?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                         aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Hapus Surat Masuk?</h5>
+                                                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">×</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">Pilih "Hapus" jika ingin menghapus surat.</div>
                                                                 <div class="modal-footer">
                                                                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                                                                    <form id="hapus" action="hapus_disposisi.php" method="post">
-                                                                        <input type="hidden" name="id_disposisi" value="<?php echo $row['id_disposisi']?>">
-                                                                        <input type="hidden" name="ket" value="keluar">
+                                                                    <form id="hapus" action="hapus_peminjaman.php" method="post">
+                                                                        <input type="hidden" name="id_peminjaman" value="<?php echo $row['id_peminjaman']?>">
                                                                         <input class="btn btn-danger" type="submit" value="HAPUS">
                                                                     </form>
                                                                 </div>
@@ -424,10 +433,34 @@
                                                         </div>
                                                     </div>
                                                     <!-- END HAPUS MODAL-->
+
+                                                    <!-- KEMBALI Modal-->
+                                                    <div class="modal fade" id="kembaliModal<?php echo $row['id_peminjaman']?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                         aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Kembalikan Surat?</h5>
+                                                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">×</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">Pilih "Kembalikan" jika ingin mengembalikan surat.</div>
+                                                                <div class="modal-footer">
+                                                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                                                                    <form id="hapus" action="update_peminjaman.php" method="post">
+                                                                        <input type="hidden" name="id_peminjaman" value="<?php echo $row['id_peminjaman']?>">
+                                                                        <input class="btn btn-success" type="submit" value="Kembalikan">
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- END KEMBALI MODAL-->
                                                 </tr>
                                                 <?php
                                             }
-                                        } else {
+                                        }else {
                                             printf('No record found.<br />');
                                         }
                                     ?>
@@ -465,70 +498,6 @@
     </a>
 
     <!-- MODAL DILUAR TABEL -->
-
-    <!-- MODAL DISPOSISI-->
-    <!-- isine select2 teko tabel lain -->
-    <div class="modal fade" id="tambahModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Disposisi Surat</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <form id="add" action="tambah_disposisi.php" method="post" enctype="multipart/form-data">
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Nomor Surat:</label>
-                            <select class="form-control" name="no_surat">
-                                <option disabled selected>Pilih Nomor Surat</option>
-
-                                <?php
-                                    $sqlsurat = "Select * FROM tb_surat";
-                                    $resultsurat = $conn -> query($sqlsurat);
-                                    if ($resultsurat->num_rows > 0) {
-                                        while($row = $resultsurat->fetch_assoc()) { ?>
-
-                                            <option value="<?php echo $row['id_surat'];?>"><?php echo $row['no_surat'];?></option>
-                                        <?php };};?>
-                            </select>
-
-                            <label for="recipient-name" class="col-form-label">Penerima Disposisi:</label>
-                            <select class="form-control" name="penerima">
-                                <option disabled selected>Pilih Penerima Disposisi</option>
-                                <?php
-                                    $sqlsurat = "Select * FROM user";
-                                    $resultsurat = $conn -> query($sqlsurat);
-                                    if ($resultsurat->num_rows > 0) {
-                                        while($row = $resultsurat->fetch_assoc()) { ?>
-
-                                            <option value="<?php echo $row['username'];?>"><?php echo $row['nama'];?></option>
-                                        <?php };};?>
-                            </select>
-                            <label for="recipient-name" class="col-form-label">Pesan:</label>
-                            <input class="form-control" type="text" name="pesan">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <a href="#" onclick="myFunction()" class="btn btn-success btn-icon-split">
-                            <span class="icon text-white-50">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
-                            </span>
-                            <span class="text">Simpan</span>
-                        </a>
-                        <script>
-                            function myFunction() {
-                                document.getElementById("add").submit();
-                            }
-                        </script>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- END MODAL DISPOSISI-->
 
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -583,11 +552,32 @@
     if(isset($_GET['hapus'])){
         if($_GET['hapus'] == "berhasil"){
             echo '<script type ="text/JavaScript">';
-            echo 'alert("Berhasil Menghapus Disposisi")';
+            echo 'alert("Berhasil Menghapus Peminjaman")';
             echo '</script>';
         }else if($_GET['hapus'] == "gagal"){
             echo '<script type ="text/JavaScript">';
-            echo 'alert("Gagal Menghapus Disposisi")';
+            echo 'alert("Gagal Menghapus Peminjaman")';
+            echo '</script>';
+        }
+    }
+
+    if(isset($_GET['tambah'])){
+        if($_GET['tambah'] == "berhasil"){
+            echo '<script type ="text/JavaScript">';
+            echo 'alert("Berhasil Menambahkan Peminjaman")';
+            echo '</script>';
+        }else if($_GET['tambah'] == "gagal"){
+            echo '<script type ="text/JavaScript">';
+            echo 'alert("Gagal Menambahkan Peminjaman")';
+            echo '</script>';
+        }
+        if($_GET['pengembalian'] == "berhasil"){
+            echo '<script type ="text/JavaScript">';
+            echo 'alert("Berhasil Mengembalikan Surat")';
+            echo '</script>';
+        }else if($_GET['pengembalian'] == "gagal"){
+            echo '<script type ="text/JavaScript">';
+            echo 'alert("Gagal Mengembalikan Surat")';
             echo '</script>';
         }
     }

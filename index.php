@@ -70,6 +70,8 @@
                     <a class="collapse-item" href="surat_masuk.php">Surat Masuk</a>
                     <div class="collapse-divider"></div>
                     <a class="collapse-item" href="surat_keluar.php">Surat Keluar</a>
+                    <h6 class="collapse-header">Transaksi:</h6>
+                    <a class="collapse-item" href="peminjaman.php">Peminjaman</a>
                 </div>
             </div>
         </li>
@@ -90,24 +92,6 @@
                 </div>
             </div>
         </li>
-
-        <!-- TRANSAKSI -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTrans"
-               aria-expanded="true" aria-controls="collapseTrans">
-                <i class="fas fa-fw fa-retweet"></i>
-                <span>Transaksi</span>
-            </a>
-            <div id="collapseTrans" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Transaksi:</h6>
-                    <a class="collapse-item" href="peminjaman.php">Peminjaman</a>
-                    <div class="collapse-divider"></div>
-                    <a class="collapse-item" href="pengembalian.php">Pengembalian</a>
-                </div>
-            </div>
-        </li>
-
 
         <!-- TRANSAKSI -->
         <li class="nav-item">

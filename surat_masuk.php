@@ -18,7 +18,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>E-ARSIP - Dashboard</title>
+    <title>E-ARSIP - Surat</title>
 
     <!-- Custom fonts for this template-->
     <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -73,6 +73,8 @@
                     <a class="collapse-item active" href="surat_masuk.php">Surat Masuk</a>
                     <div class="collapse-divider"></div>
                     <a class="collapse-item" href="surat_keluar.php">Surat Keluar</a>
+                    <h6 class="collapse-header">Transaksi:</h6>
+                    <a class="collapse-item" href="peminjaman.php">Peminjaman</a>
                 </div>
             </div>
         </li>
@@ -93,24 +95,6 @@
                 </div>
             </div>
         </li>
-
-        <!-- TRANSAKSI -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTrans"
-               aria-expanded="true" aria-controls="collapseTrans">
-                <i class="fas fa-fw fa-retweet"></i>
-                <span>Transaksi</span>
-            </a>
-            <div id="collapseTrans" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Transaksi:</h6>
-                    <a class="collapse-item" href="peminjaman.php">Peminjaman</a>
-                    <div class="collapse-divider"></div>
-                    <a class="collapse-item" href="pengembalian.php">Pengembalian</a>
-                </div>
-            </div>
-        </li>
-
 
         <!-- TRANSAKSI -->
         <li class="nav-item">
@@ -323,6 +307,9 @@
                                                 <i class="fas fa-share"></i>
                                             </a>
                                             -->
+                                            <a href="#" data-toggle="modal" data-target="#pinjamModal<?php echo $row['id_surat']?>" class="btn btn-success btn-circle btn-sm">
+                                                <i class="fas fa-handshake"></i>
+                                            </a>
                                             <a href="#" data-toggle="modal" data-target="#infoModal<?php echo $row['id_surat']?>" class="btn btn-info btn-circle btn-sm">
                                                 <i class="fas fa-info-circle"></i>
                                             </a>
@@ -333,6 +320,32 @@
 
 
                                         <!-- SEMUA MODAL DISINI-->
+
+                                        <!-- PINJAM Modal-->
+                                        <div class="modal fade" id="pinjamModal<?php echo $row['id_surat']?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                             aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Pinjam Surat <?php echo $row['no_surat']?>?</h5>
+                                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body"><p style="color: red">Surat Harus Dikembalikan Maksimal 7 Hari Setelah Peminjaman</p>
+                                                         Pilih "Pinjam" jika ingin meminjam surat.<br>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                                                        <form id="hapus" action="tambah_peminjaman.php" method="post">
+                                                            <input type="hidden" name="id_surat" value="<?php echo $row['id_surat']?>">
+                                                            <input class="btn btn-success" type="submit" value="Pinjam">
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- END PINJAM MODAL-->
 
                                         <!-- MODAL INFO-->
                                         <div class="modal fade" id="infoModal<?php echo $row['id_surat']?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
