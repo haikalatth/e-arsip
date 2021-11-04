@@ -259,10 +259,10 @@
                                                 <i class="fas fa-share"></i>
                                             </a>
                                             -->
-                                            <a href="#" data-toggle="modal" data-target="#infoModal" class="btn btn-info btn-circle btn-sm">
+                                            <a href="#" data-toggle="modal" data-target="#infoModal<?php echo $row['id_surat']?>" class="btn btn-info btn-circle btn-sm">
                                                 <i class="fas fa-info-circle"></i>
                                             </a>
-                                            <a href="#" data-toggle="modal" data-target="#hapusModal" class="btn btn-danger btn-circle btn-sm">
+                                            <a href="#" data-toggle="modal" data-target="#hapusModal<?php echo $row['id_surat']?>" class="btn btn-danger btn-circle btn-sm">
                                                 <i class="fas fa-trash"></i>
                                             </a>
                                         </td>
@@ -270,45 +270,8 @@
 
                                         <!-- SEMUA MODAL DISINI-->
 
-                                        <!-- MODAL DISPOSISI-->
-                                        <div class="modal fade" id="disposisiModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                                             aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Disposisi Surat </h5>
-                                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">×</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form>
-                                                            <div class="form-group">
-                                                                <label for="recipient-name" class="col-form-label">Penerima Disposisi:</label>
-                                                                <select class="form-control">
-                                                                    <option value="idne">PENERIMA 1</option>
-                                                                    <option>PENERIMA 2</option>
-                                                                </select>
-                                                                <label for="recipient-name" class="col-form-label">Pesan:</label>
-                                                                <input class="form-control" type="text" name="pesan">
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <a href="#" class="btn btn-success btn-icon-split">
-                                                            <span class="icon text-white-50">
-                                                                <i class="fas fa-paper-plane"></i>
-                                                            </span>
-                                                            <span class="text">Teruskan Surat</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- END MODAL DISPOSISI-->
-
                                         <!-- MODAL INFO-->
-                                        <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                        <div class="modal fade" id="infoModal<?php echo $row['id_surat']?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                                              aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
@@ -368,7 +331,7 @@
                                         <!-- END MODAL INFO-->
 
                                         <!-- HAPUS Modal-->
-                                        <div class="modal fade" id="hapusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                        <div class="modal fade" id="hapusModal<?php echo $row['id_surat']?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                                              aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
@@ -381,16 +344,12 @@
                                                     <div class="modal-body">Pilih "Hapus" jika ingin menghapus surat.</div>
                                                     <div class="modal-footer">
                                                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                                                        <a class="btn btn-primary" href="#" onclick="hapusFunc()">Hapus</a>
                                                         <form id="hapus" action="hapus_surat.php" method="post">
                                                             <input type="hidden" name="id_surat" value="<?php echo $row['id_surat']?>">
                                                             <input type="hidden" name="file" value="<?php echo $row['file']?>">
+                                                            <input type="hidden" name="ket" value="masuk">
+                                                            <input class="btn btn-danger" type="submit" value="HAPUS">
                                                         </form>
-                                                        <script>
-                                                            function hapusFunc() {
-                                                                document.getElementById("hapus").submit();
-                                                            }
-                                                        </script>
                                                     </div>
                                                 </div>
                                             </div>

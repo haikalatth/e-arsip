@@ -381,16 +381,12 @@
                                                             <div class="modal-body">Pilih "Hapus" jika ingin menghapus surat.</div>
                                                             <div class="modal-footer">
                                                                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                                                                <a class="btn btn-primary" href="#" onclick="hapusFunc()">Hapus</a>
                                                                 <form id="hapus" action="hapus_surat.php" method="post">
                                                                     <input type="hidden" name="id_surat" value="<?php echo $row['id_surat']?>">
                                                                     <input type="hidden" name="file" value="<?php echo $row['file']?>">
+                                                                    <input type="hidden" name="ket" value="keluar">
+                                                                    <input class="btn btn-danger" type="submit" value="HAPUS">
                                                                 </form>
-                                                                <script>
-                                                                    function hapusFunc() {
-                                                                        document.getElementById("hapus").submit();
-                                                                    }
-                                                                </script>
                                                             </div>
                                                         </div>
                                                     </div>
