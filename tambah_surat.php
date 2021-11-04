@@ -20,9 +20,17 @@
             $sql = "INSERT INTO tb_surat VALUES('','$ket','$no_surat','$perihal','$tgl','$asal','$xx')";
             if ($conn->query($sql) === TRUE) {
                 move_uploaded_file($_FILES['file']['tmp_name'], 'fileupload/'.$xx);
-                header("location: surat_masuk.php?tambah=berhasil");
+                if($ket=='1'){
+                    header("location: surat_masuk.php?tambah=berhasil");
+                }else{
+                    header("location: surat_keluar.php?tambah=berhasil");
+                }
             } else {
-                header("location: surat_masuk.php?tambah=gagal");
+                if($ket=='2'){
+                    header("location: surat_masuk.php?tambah=gagal");
+                }else{
+                    header("location: surat_keluar.php?tambah=gagal");
+                }
             }
         }
     }else{

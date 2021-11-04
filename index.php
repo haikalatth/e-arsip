@@ -52,7 +52,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="index.php">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
         </li>
@@ -84,9 +84,9 @@
             <div id="collapseDisposisi" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Disposisi:</h6>
-                    <a class="collapse-item" href="#">Masuk</a>
+                    <a class="collapse-item" href="disposisi_masuk.php">Masuk</a>
                     <div class="collapse-divider"></div>
-                    <a class="collapse-item" href="#">Keluar</a>
+                    <a class="collapse-item" href="disposisi_keluar.php">Keluar</a>
                 </div>
             </div>
         </li>
@@ -101,9 +101,9 @@
             <div id="collapseTrans" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Transaksi:</h6>
-                    <a class="collapse-item" href="#">Peminjaman</a>
+                    <a class="collapse-item" href="peminjaman.php">Peminjaman</a>
                     <div class="collapse-divider"></div>
-                    <a class="collapse-item" href="#">Pengembalian</a>
+                    <a class="collapse-item" href="pengembalian.php">Pengembalian</a>
                 </div>
             </div>
         </li>
@@ -119,9 +119,9 @@
             <div id="collapseAgenda" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Agenda:</h6>
-                    <a class="collapse-item" href="#">Buku Agenda</a>
+                    <a class="collapse-item" href="buku_agenda.php">Buku Agenda</a>
                     <div class="collapse-divider"></div>
-                    <a class="collapse-item" href="#">Jadwal Penyusutan</a>
+                    <a class="collapse-item" href="penyusutan.php">Jadwal Penyusutan</a>
                 </div>
             </div>
         </li>
@@ -152,7 +152,7 @@
 
                     <!-- Nav Item - Profil -->
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="admin_userdata.php">
                             <i class="fas fa-fw fa-users"></i>
                             <span>Data User</span></a>
                     </li>

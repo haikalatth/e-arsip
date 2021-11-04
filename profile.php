@@ -51,7 +51,7 @@
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" href="index.php">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Dashboard</span></a>
@@ -76,6 +76,23 @@
 
         <!-- TRANSAKSI -->
         <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDisposisi"
+               aria-expanded="true" aria-controls="collapseDisposisi">
+                <i class="fas fa-fw fa-paper-plane"></i>
+                <span>Disposisi</span>
+            </a>
+            <div id="collapseDisposisi" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Disposisi:</h6>
+                    <a class="collapse-item" href="disposisi_masuk.php">Masuk</a>
+                    <div class="collapse-divider"></div>
+                    <a class="collapse-item" href="disposisi_keluar.php">Keluar</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- TRANSAKSI -->
+        <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTrans"
                aria-expanded="true" aria-controls="collapseTrans">
                 <i class="fas fa-fw fa-retweet"></i>
@@ -84,26 +101,39 @@
             <div id="collapseTrans" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Transaksi:</h6>
-                    <a class="collapse-item" href="#">Peminjaman</a>
+                    <a class="collapse-item" href="peminjaman.php">Peminjaman</a>
                     <div class="collapse-divider"></div>
-                    <a class="collapse-item" href="#">Pengembalian</a>
+                    <a class="collapse-item" href="pengembalian.php">Pengembalian</a>
                 </div>
             </div>
         </li>
 
-        <!-- Nav Item - Agenda -->
+
+        <!-- TRANSAKSI -->
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAgenda"
+               aria-expanded="true" aria-controls="collapseAgenda">
                 <i class="fas fa-fw fa-calendar"></i>
-                <span>Agenda</span></a>
+                <span>Agenda</span>
+            </a>
+            <div id="collapseAgenda" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Agenda:</h6>
+                    <a class="collapse-item" href="buku_agenda.php">Buku Agenda</a>
+                    <div class="collapse-divider"></div>
+                    <a class="collapse-item" href="penyusutan.php">Jadwal Penyusutan</a>
+                </div>
+            </div>
         </li>
 
         <!-- Nav Item - Profil -->
-        <li class="nav-item">
-            <a class="nav-link" href="#">
+        <li class="nav-item active">
+            <a class="nav-link" href="profile.php">
                 <i class="fas fa-fw fa-user"></i>
                 <span>Profil</span></a>
         </li>
+
+
 
         <!-- if else session admin dimulai disini -->
         <?php
@@ -122,7 +152,7 @@
 
                     <!-- Nav Item - Profil -->
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="admin_userdata.php">
                             <i class="fas fa-fw fa-users"></i>
                             <span>Data User</span></a>
                     </li>
@@ -212,7 +242,7 @@
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="profile.php">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
                             </a>

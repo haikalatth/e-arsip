@@ -46,7 +46,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
             <div class="sidebar-brand-icon rotate-n-90">
                 <i class="fas fa-archive"></i>
             </div>
@@ -64,18 +64,35 @@
         </li>
 
         <!-- SURAT -->
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSurat"
                aria-expanded="true" aria-controls="collapseSurat">
                 <i class="fas fa-fw fa-folder"></i>
                 <span>Dokumen</span>
             </a>
-            <div id="collapseSurat" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div id="collapseSurat" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Surat:</h6>
-                    <a class="collapse-item active" href="surat_masuk.php">Surat Masuk</a>
+                    <a class="collapse-item" href="surat_masuk.php">Surat Masuk</a>
                     <div class="collapse-divider"></div>
                     <a class="collapse-item" href="surat_keluar.php">Surat Keluar</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- TRANSAKSI -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDisposisi"
+               aria-expanded="true" aria-controls="collapseDisposisi">
+                <i class="fas fa-fw fa-paper-plane"></i>
+                <span>Disposisi</span>
+            </a>
+            <div id="collapseDisposisi" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Disposisi:</h6>
+                    <a class="collapse-item" href="disposisi_masuk.php">Masuk</a>
+                    <div class="collapse-divider"></div>
+                    <a class="collapse-item" href="disposisi_keluar.php">Keluar</a>
                 </div>
             </div>
         </li>
@@ -90,42 +107,66 @@
             <div id="collapseTrans" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Transaksi:</h6>
-                    <a class="collapse-item" href="#">Peminjaman</a>
+                    <a class="collapse-item" href="peminjaman.php">Peminjaman</a>
                     <div class="collapse-divider"></div>
-                    <a class="collapse-item" href="#">Pengembalian</a>
+                    <a class="collapse-item" href="pengembalian.php">Pengembalian</a>
                 </div>
             </div>
         </li>
 
-        <!-- Nav Item - Agenda -->
+
+        <!-- TRANSAKSI -->
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAgenda"
+               aria-expanded="true" aria-controls="collapseAgenda">
                 <i class="fas fa-fw fa-calendar"></i>
-                <span>Agenda</span></a>
+                <span>Agenda</span>
+            </a>
+            <div id="collapseAgenda" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Agenda:</h6>
+                    <a class="collapse-item" href="buku_agenda.php">Buku Agenda</a>
+                    <div class="collapse-divider"></div>
+                    <a class="collapse-item" href="penyusutan.php">Jadwal Penyusutan</a>
+                </div>
+            </div>
         </li>
 
         <!-- Nav Item - Profil -->
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="profile.php">
                 <i class="fas fa-fw fa-user"></i>
                 <span>Profil</span></a>
         </li>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider">
+
 
         <!-- if else session admin dimulai disini -->
-        <div class="sidebar-heading">
-            Bagian Admin
-        </div>
+        <?php
+            $username = $_SESSION['username'];
+            $sql = "SELECT * FROM user WHERE username='$username'";
+            $result = mysqli_query($conn, $sql);
+            if ($result->num_rows > 0) {
+                $row = mysqli_fetch_assoc($result);
+                if($row['jabatan']==1){ ?>
+                    <!-- Divider -->
+                    <hr class="sidebar-divider">
 
-        <!-- Nav Item - Profil -->
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="fas fa-fw fa-users"></i>
-                <span>Data User</span></a>
-        </li>
+                    <div class="sidebar-heading">
+                        Bagian Admin
+                    </div>
 
+                    <!-- Nav Item - Profil -->
+                    <li class="nav-item active">
+                        <a class="nav-link" href="admin_userdata.php">
+                            <i class="fas fa-fw fa-users"></i>
+                            <span>Data User</span></a>
+                    </li>
+                    <?php
+
+                }
+            }
+        ?>
         <!-- end of if else admin -->
 
         <!-- Divider -->
@@ -186,14 +227,28 @@
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                <?php
+                                    $username = $_SESSION['username'];
+                                    $sql = "SELECT * FROM user WHERE username='$username'";
+                                    $result = $conn->query($sql);
+
+                                    if ($result->num_rows > 0) {
+                                        while($row = $result->fetch_assoc()) {
+                                            echo $row['nama'];
+                                        }
+                                    } else {
+                                        printf('No record found.<br />');
+                                    }
+                                ?>
+                            </span>
                             <img class="img-profile rounded-circle"
                                  src="assets/img/undraw_profile.svg">
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="profile.php">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
                             </a>
