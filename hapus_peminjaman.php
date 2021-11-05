@@ -10,6 +10,5 @@
         } else {
             header("location: peminjaman.php?hapus=gagal");
         }
-
     }
 
