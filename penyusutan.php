@@ -279,7 +279,9 @@
                                         <td>1</td>
                                         <td>0-1 Tahun</td>
                                         <td><?php
-                                                $sql = "SELECT * FROM tb_surat WHERE ";
+                                                $dn = date('Y-m-d');
+                                                $do = date('Y-m-d', time() - (365*86400));
+                                                $sql = "SELECT * FROM tb_surat WHERE tgl_arsip BETWEEN '$do'AND '$dn'";
 
                                                 $result = $conn->query($sql);
                                                 echo $result->num_rows;
@@ -308,6 +310,55 @@
 
                                                             <form id="hapus" action="susut.php" method="post">
                                                                 <input type="hidden" name="ket" value="1">
+                                                                <input class="btn btn-danger" type="submit" value="Musnahkan">
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- END HAPUS MODAL-->
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Lebih Dari 1 Tahun</td>
+                                        <td><?php
+                                                $dn = date('Y-m-d', time() - (365*86400));
+                                                $do = date('Y-m-d', time() - (25*365*86400));
+                                                $sql = "SELECT * FROM tb_surat WHERE tgl_arsip BETWEEN '$do'AND '$dn'";
+
+                                                $result = $conn->query($sql);
+                                                if($result->num_rows){
+                                                    $val = 1;
+                                                    echo $result->num_rows;
+                                                }else{
+                                                    echo 'Tidak Ada Arsip';
+                                                }
+                                            ?></td>
+                                        <td>
+                                            <a href="#" data-toggle="modal" data-target="#hapusModal2" class="<?php if($val != 1){echo 'disabled';} ?> btn btn-danger btn-icon-split">
+                                                        <span class="icon text-white-50">
+                                                            <i class="fas fa-trash"></i>
+                                                        </span>
+                                                <span class="text">Musnahkan Arsip</span>
+                                            </a>
+                                            <!-- HAPUS Modal-->
+                                            <div class="modal fade" id="hapusModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                                 aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Musnahkan Arsip Yang Berusia 0-1 Tahun?</h5>
+                                                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">×</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body"><p style="color: red">Tindakan Ini Tidak Dapat Dikembalikan</p>Pilih "Musnahkan" jika ingin Memusnahkan arsip.</div>
+                                                        <div class="modal-footer">
+                                                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+
+                                                            <form id="hapus" action="susut.php" method="post">
+                                                                <input type="hidden" name="ket" value="2">
                                                                 <input class="btn btn-danger" type="submit" value="Musnahkan">
                                                             </form>
                                                         </div>
@@ -405,15 +456,11 @@
     if(isset($_GET['hapus'])){
         if($_GET['hapus'] == "berhasil"){
             echo '<script type ="text/JavaScript">';
-            echo 'alert("Berhasil Menghapus User")';
+            echo 'alert("Berhasil Mengmusnahkan Arsip")';
             echo '</script>';
         }else if($_GET['hapus'] == "gagal"){
             echo '<script type ="text/JavaScript">';
-            echo 'alert("Gagal Menghapus User")';
-            echo '</script>';
-        }else if($_GET['admin'] == "berhasil"){
-            echo '<script type ="text/JavaScript">';
-            echo 'alert("Berhasil Menambahkan Admin")';
+            echo 'alert("Gagal Memusnahkan Arsip")';
             echo '</script>';
         }
     }
