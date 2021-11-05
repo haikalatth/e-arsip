@@ -284,10 +284,15 @@
                                                 $sql = "SELECT * FROM tb_surat WHERE tgl_arsip BETWEEN '$do'AND '$dn'";
 
                                                 $result = $conn->query($sql);
-                                                echo $result->num_rows;
+                                                if($result->num_rows){
+                                                    $val = 1;
+                                                    echo $result->num_rows;
+                                                }else{
+                                                    echo 'Tidak Ada Arsip';
+                                                }
                                             ?></td>
                                         <td>
-                                            <a href="#" data-toggle="modal" data-target="#hapusModal1" class="btn btn-danger btn-icon-split">
+                                            <a href="#" data-toggle="modal" data-target="#hapusModal1" class="<?php if($val != 1){echo 'disabled';} ?> btn btn-danger btn-icon-split">
                                                         <span class="icon text-white-50">
                                                             <i class="fas fa-trash"></i>
                                                         </span>
@@ -329,14 +334,14 @@
 
                                                 $result = $conn->query($sql);
                                                 if($result->num_rows){
-                                                    $val = 1;
+                                                    $val2 = 1;
                                                     echo $result->num_rows;
                                                 }else{
                                                     echo 'Tidak Ada Arsip';
                                                 }
                                             ?></td>
                                         <td>
-                                            <a href="#" data-toggle="modal" data-target="#hapusModal2" class="<?php if($val != 1){echo 'disabled';} ?> btn btn-danger btn-icon-split">
+                                            <a href="#" data-toggle="modal" data-target="#hapusModal2" class="<?php if($val2 != 1){echo 'disabled';} ?> btn btn-danger btn-icon-split">
                                                         <span class="icon text-white-50">
                                                             <i class="fas fa-trash"></i>
                                                         </span>

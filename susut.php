@@ -19,12 +19,19 @@
             while($row = $result->fetch_assoc()) {
                 $id = $row['id_surat'];
                 $filename = $row['file'];
-                $sql2 = "DELETE FROM tb_surat  WHERE id_surat = '$id'";
-                if ($conn->query($sql2) === TRUE) {
-                    unlink('fileupload'.DIRECTORY_SEPARATOR.$filename); //delete file
-                    header("location: penyusutan.php?hapus=berhasil");
+                $sql2 = "DELETE FROM tb_peminjaman  WHERE id_surat = '$id'";
+                $sql3 = "DELETE FROM tb_disposisi  WHERE id_surat = '$id'";
+                if ($conn->query($sql2) === TRUE && $conn->query($sql3) === TRUE) {
+                    $sql4 = "DELETE FROM tb_surat WHERE id_surat = '$id'";
+                    if($conn->query($sql4) == TRUE){
+                        unlink('fileupload'.DIRECTORY_SEPARATOR.$filename); //delete file
+                        header("location: penyusutan.php?hapus=berhasil");
+                    }else{
+                        echo '11'.$conn->error;
+                    }
                 }else {
-                    header("location: penyusutan.php?hapus=gagal");
+                    echo $conn->error;
+                    //header("location: penyusutan.php?hapus=gagal");
                 }
             }
         //if ($conn->query($sql) === TRUE) {
